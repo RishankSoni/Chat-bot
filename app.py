@@ -33,12 +33,12 @@ def upload_file():
         return redirect(request.url)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)  # Use the full file path
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
         flash('File uploaded successfully')
         global upload
         upload = True
-        bot.parse(filepath)  # Pass the full file path to the chatbot
+        bot.parse(filepath)
         return redirect(url_for('index'))
     else:
         flash('Invalid file format. Only PDFs are allowed.')
