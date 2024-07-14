@@ -38,7 +38,7 @@ class PDF_Chatbot:
         )
 
         # Correctly formatted file path using forward slashes
-        self.document = parser.load_data(file_path)
+        self.document = parser.load_data(file_path.replace('\\', '/'))
 
         self.memory = ChatMemoryBuffer.from_defaults(token_limit=2000)
         self.index = VectorStoreIndex.from_documents(self.document, service_context=self.service_context)
@@ -46,10 +46,10 @@ class PDF_Chatbot:
             chat_mode="context",
             memory=self.memory,
             system_prompt=(
-                "You are formal chatbot. Give your answer in HTML rendering, without <html​without <html> and <body> tags. Only answer if it is present in the pdf."
+                "You are a formal chatbot. Give your answer in HTML rendering, without <html> and <body> tags. Only answer if it is present in the PDF."
             ),
         )
-    
+
     def query(self, query):
         response = self.chat_engine.chat(query)
         print(response)
