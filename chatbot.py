@@ -46,4 +46,11 @@ class PDF_Chatbot:
             chat_mode="context",
             memory=self.memory,
             system_prompt=(
-                "You are formal chatbot. Give your answer in HTML rendering, without <html​⬤
+                "You are formal chatbot. Give your answer in HTML rendering, without <html​without <html> and <body> tags. Only answer if it is present in the pdf."
+            ),
+        )
+    
+    def query(self, query):
+        response = self.chat_engine.chat(query)
+        print(response)
+        return response
